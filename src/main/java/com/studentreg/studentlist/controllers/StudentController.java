@@ -5,8 +5,9 @@ import com.studentreg.studentlist.services.StudentService;
 //import org.springframework.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+//import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-@Controller
+@RestController //RestController not Controller
 @RequestMapping("/api/v1/tasks")
 public class StudentController {
     @Autowired
@@ -36,38 +37,41 @@ public class StudentController {
         return ResponseEntity.ok(studentService.addStudent(student));
     }
 
-    @PutMapping("/{phoneNumber}")
+    //   @PutMapping("/{phoneNumber}") or{dobLoaclD}, etc., paths look the same and cannot be differentiated at runtime
+
+
+    @PutMapping("/phoneNumber")
     public ResponseEntity<Student> updateStudentPN(@PathVariable Long phoneNumber, @RequestBody Student student){
         student.setPN(phoneNumber);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
     
-    @PutMapping("/{dobLocalD}")
+    @PutMapping("/dobLocal")
     public ResponseEntity<Student> updateStudentDOB(@PathVariable String dobString, @RequestBody Student student){
         student.setDOB(dobString);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/{firstName}")
+    @PutMapping("/firstName")
     public ResponseEntity<Student> updateStudentFName(@PathVariable String firstName, @RequestBody Student student){
         student.setFName(firstName);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/{lastName}")
+    @PutMapping("/lastName")
     public ResponseEntity<Student> updateStudentLName(@PathVariable String lastName, @RequestBody Student student){
         student.setLName(lastName);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/{email}")
+    @PutMapping("/email")
     public ResponseEntity<Student> updateStudentEmail(@PathVariable String email, @RequestBody Student student){
         student.setEmail(email);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @DeleteMapping("/{student}")
-        public ResponseEntity<Boolean> getAllStudents(@PathVariable Student student) {
+    @DeleteMapping("/student")
+        public ResponseEntity<Boolean> deleteStudents(@PathVariable Student student) {
             studentService.deleteStudent(student);
             return ResponseEntity.ok(true);
         }

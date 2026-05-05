@@ -16,19 +16,19 @@ public class StudentService {
     public Student addStudent (Student student){
         return studentRepository.save(student);
     }
-
+    
     public List<Student> getAllStudent(){
         return studentRepository.findAll();
     }
- 
+    
     public Student findStudentById(Long id){
         return studentRepository.getById(id);
     }
-
+    
     public void deleteStudent (Student student){
         studentRepository.delete(student);
     }
-
+    
     public Student updateStudent (Student student){
         return studentRepository.save(student);
     }
