@@ -2,7 +2,7 @@ package com.studentreg.studentlist.controllers;
 
 import com.studentreg.studentlist.models.Student;
 import com.studentreg.studentlist.services.StudentService;
-//import org.springframework.*;
+import org.springframework.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.stereotype.Controller;
@@ -19,17 +19,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+//import jakarta.*;
 
 
-@RestController //RestController not Controller
-@RequestMapping("/api/v1/tasks")
+@RestController //RestController not Controller, the other does work, but rest is better suited for data 
 public class StudentController {
+
     @Autowired
     private StudentService studentService;
-
-    @GetMapping("/")
+ 
+    //fetch all students with endpoint
+    @GetMapping("/students")
     public ResponseEntity<List<Student>> getAllStudents() {
         return ResponseEntity.ok(studentService.getAllStudent());
+    }
+
+    @DeleteMapping("/")
+    public ResponseEntity<Boolean> deleteStudents(@PathVariable Student student) {
+        studentService.deleteStudent(student);
+        return ResponseEntity.ok(true);
     }
 
     @PostMapping("/")
@@ -39,6 +47,14 @@ public class StudentController {
 
     //   @PutMapping("/{phoneNumber}") or{dobLoaclD}, etc., paths look the same and cannot be differentiated at runtime
 
+    //REST API usually has one update endpoint that accepts the entire object, aka. only one PUT
+
+   /*@PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student student){
+        student.set
+        return ResponseEntity.ok(studentService.updateStudent(student));
+    }*/
+    
 
     @PutMapping("/phoneNumber")
     public ResponseEntity<Student> updateStudentPN(@PathVariable Long phoneNumber, @RequestBody Student student){
@@ -46,7 +62,7 @@ public class StudentController {
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
     
-    @PutMapping("/dobLocal")
+    @PutMapping("/dobLocalD")
     public ResponseEntity<Student> updateStudentDOB(@PathVariable String dobString, @RequestBody Student student){
         student.setDOB(dobString);
         return ResponseEntity.ok(studentService.updateStudent(student));
@@ -70,9 +86,5 @@ public class StudentController {
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @DeleteMapping("/student")
-        public ResponseEntity<Boolean> deleteStudents(@PathVariable Student student) {
-            studentService.deleteStudent(student);
-            return ResponseEntity.ok(true);
-        }
+
 }
