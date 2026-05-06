@@ -2,8 +2,15 @@ package com.studentreg.studentlist.controllers;
 
 import com.studentreg.studentlist.models.Student;
 import com.studentreg.studentlist.services.StudentService;
+
+//import springfox.documentation.builders.RequestHandlerSelectors;
+//import springfox.documentation.spi.DocumentationType;
+//import springfox.documentation.spring.web.plugins.Docket;
+
 //import org.springframework.*;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +25,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+//import io.swagger.v3.oas.annotations.Operation;
+//import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 //import jakarta.*;
 
@@ -56,31 +67,31 @@ public class StudentController {
     }*/
     
 
-    @PutMapping("/phoneNumber")
+    @PutMapping("/phoneNumber/")
     public ResponseEntity<Student> updateStudentPN(@PathVariable Long phoneNumber, @RequestBody Student student){
         student.setPN(phoneNumber);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
     
-    @PutMapping("/dobLocalD")
+    @PutMapping("/dobLocalD/")
     public ResponseEntity<Student> updateStudentDOB(@PathVariable String dobString, @RequestBody Student student){
         student.setDOB(dobString);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/firstName")
+    @PutMapping("/firstName/")
     public ResponseEntity<Student> updateStudentFName(@PathVariable String firstName, @RequestBody Student student){
         student.setFName(firstName);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/lastName")
+    @PutMapping("/lastName/")
     public ResponseEntity<Student> updateStudentLName(@PathVariable String lastName, @RequestBody Student student){
         student.setLName(lastName);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/email")
+    @PutMapping("/email/")
     public ResponseEntity<Student> updateStudentEmail(@PathVariable String email, @RequestBody Student student){
         student.setEmail(email);
         return ResponseEntity.ok(studentService.updateStudent(student));
