@@ -2,11 +2,11 @@ package com.studentreg.studentlist.controllers;
 
 import com.studentreg.studentlist.models.Student;
 import com.studentreg.studentlist.services.StudentService;
-import org.springframework.*;
+//import org.springframework.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class StudentController {
     private StudentService studentService;
  
     //fetch all students with endpoint
-    @GetMapping("/students")
+    @GetMapping("/students/")
     public ResponseEntity<List<Student>> getAllStudents() {
         return ResponseEntity.ok(studentService.getAllStudent());
     }
