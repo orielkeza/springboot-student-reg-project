@@ -149,6 +149,10 @@ Build a packaged JAR (runs tests as part of the build):
 ```bash
 ./mvnw clean package
 ```
+## Testing Coverage
+
+<img width="1394" height="287" alt="image" src="https://github.com/user-attachments/assets/45f53248-8fb0-4845-b41c-b458b74bb56e" />
+
 
 ### Testing Approach
 
