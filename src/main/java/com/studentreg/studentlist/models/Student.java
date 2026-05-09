@@ -28,6 +28,7 @@ public class Student {
 
     //assume string is inserted as yyyy-mm-dd
     public void setDOB(String dobString){
+        //this.dobString = dobString;
         dobLocalD = LocalDate.parse(dobString);
     }
 

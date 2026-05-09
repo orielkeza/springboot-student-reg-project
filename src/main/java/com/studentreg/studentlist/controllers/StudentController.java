@@ -24,7 +24,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestMapping;
 
 //import io.swagger.v3.oas.annotations.Operation;
 //import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,8 +33,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 //import jakarta.*;
 
+//no @RequestMapping means that every method needs to have it's url path spelled out for it
 
 @RestController //RestController not Controller, the other does work, but rest is better suited for data 
+//@RequestMapping("/students")
 public class StudentController {
 
     @Autowired
@@ -45,15 +48,18 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudent());
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity<Boolean> deleteStudents(@PathVariable Student student) {
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<Boolean> deleteStudents(@PathVariable Long id) {
+        Student student = studentService.findStudentById(id).orElse(null);
         studentService.deleteStudent(student);
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Student> createStudent(@RequestBody Student student){
-        return ResponseEntity.ok(studentService.addStudent(student));
+    @PostMapping("/new/{firstName}/{lastName}/{dobString}/{email}/{phoneNumber}")
+    public ResponseEntity<Student> createStudent(@PathVariable String firstName, @PathVariable String lastName, @PathVariable String dobString, @PathVariable String email, @PathVariable Long phoneNumber){
+        Student newStudent = new Student(firstName,  lastName, dobString, email , phoneNumber);
+        newStudent.setDOB(dobString);
+        return ResponseEntity.ok(studentService.addStudent(newStudent));
     }
 
     //   @PutMapping("/{phoneNumber}") or{dobLoaclD}, etc., paths look the same and cannot be differentiated at runtime
@@ -67,32 +73,37 @@ public class StudentController {
     }*/
     
 
-    @PutMapping("/phoneNumber/")
-    public ResponseEntity<Student> updateStudentPN(@PathVariable Long phoneNumber, @RequestBody Student student){
+    @PutMapping("/{id}/phoneNumber/{phoneNumber}")
+    public ResponseEntity<Student> updateStudentPN(@PathVariable Long phoneNumber, @PathVariable Long id){
+        Student student = studentService.findStudentById(id).orElse(null);
         student.setPN(phoneNumber);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
     
-    @PutMapping("/dobLocalD/")
-    public ResponseEntity<Student> updateStudentDOB(@PathVariable String dobString, @RequestBody Student student){
+    @PutMapping("/{id}/dobLocalD/{dobString}")
+    public ResponseEntity<Student> updateStudentDOB(@PathVariable String dobString, @PathVariable Long id){
+        Student student = studentService.findStudentById(id).orElse(null);
         student.setDOB(dobString);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/firstName/")
-    public ResponseEntity<Student> updateStudentFName(@PathVariable String firstName, @RequestBody Student student){
+    @PutMapping("/{id}/firstname/{firstName}")
+    public ResponseEntity<Student> updateStudentFName(@PathVariable Long id, @PathVariable String firstName){
+        Student student = studentService.findStudentById(id).orElse(null);
         student.setFName(firstName);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/lastName/")
-    public ResponseEntity<Student> updateStudentLName(@PathVariable String lastName, @RequestBody Student student){
+    @PutMapping("/{id}/lastname/{lastName}")
+    public ResponseEntity<Student> updateStudentLName(@PathVariable Long id, @PathVariable String lastName){
+        Student student = studentService.findStudentById(id).orElse(null);
         student.setLName(lastName);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
 
-    @PutMapping("/email/")
-    public ResponseEntity<Student> updateStudentEmail(@PathVariable String email, @RequestBody Student student){
+    @PutMapping("/{id}/email/{email}")
+    public ResponseEntity<Student> updateStudentEmail(@PathVariable String email, @PathVariable Long id){
+        Student student = studentService.findStudentById(id).orElse(null);
         student.setEmail(email);
         return ResponseEntity.ok(studentService.updateStudent(student));
     }
