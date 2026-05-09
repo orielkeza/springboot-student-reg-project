@@ -10,6 +10,7 @@ import com.studentreg.studentlist.services.StudentService;
 import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+//import org.mockito.Mockito;
 //import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 //import org.springframework.*;
@@ -73,13 +74,16 @@ public class StudentControllerTest {
         assertEquals(1L, student.getId());
         assertEquals(LocalDate.of(2007,05,8), student.getDOB());
         when(studentService.findStudentById(1L)).thenReturn(Optional.of(student));
+        when(studentService.addStudent(any())).thenReturn(student);
         mockMvc.perform(MockMvcRequestBuilders.post("/new/Alpha/One/2007-05-08/j1doe@gmail.com/790789789"))
         .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
         .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Alpha"))
         .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("One"))
         .andExpect(MockMvcResultMatchers.jsonPath("$.DOB").value("2007-05-08"))
         .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("j1doe@gmail.com"))
         .andExpect(MockMvcResultMatchers.jsonPath("$.PN").value(790789789L));
+        verify(studentService).addStudent(any());
     } 
 
     @Test
