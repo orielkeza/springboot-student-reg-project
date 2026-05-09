@@ -152,6 +152,9 @@ Build a packaged JAR (runs tests as part of the build):
 ## Testing Coverage
 
 <img width="1394" height="287" alt="image" src="https://github.com/user-attachments/assets/45f53248-8fb0-4845-b41c-b458b74bb56e" />
+> **Note:** The 37% entry (`com.studentreg.studentlist`) is the Spring Boot 
+> application entry point (`@SpringBootApplication`). This class is not 
+> unit tested by convention — it exists solely to bootstrap the application context.
 
 
 ### Testing Approach
