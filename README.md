@@ -118,6 +118,7 @@ Once the application is running, full endpoint documentation is available at:
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
+<img width="1403" height="912" alt="image" src="https://github.com/user-attachments/assets/a85585d3-0832-42d4-bb85-5e5a2b6977f2" />
 
 ---
 
